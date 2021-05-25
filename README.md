@@ -1,3 +1,5 @@
+[![JavaScript Style Guide](https://cdn.rawgit.com/standard/standard/master/badge.svg)](https://github.com/standard/standard)
+
 # export-table
 
 ## Usage
@@ -21,3 +23,20 @@ $ npx @oscar-bartman/export-dynamo-table [table-name]
 ```
 
 ## Development
+
+### Debug this code
+
+```bash
+$ node --inspect src/index.js # normal inspect
+$ node --inspect-brk src/index.js # break on first line
+```
+
+On vscode: 
+
+Create normal "attach" debug configuration and attach to the running process.
+
+Or just drop this in the command window (ctrl + shift + p): 
+```
+extension.pwa-node-debug.attachNodeProcess
+```
+and select the running node process.

@@ -28,6 +28,7 @@
     "joi": "^17.4.0"
   },
   "devDependencies": {
+    "dotenv": "^10.0.0",
     "eslint": "^7.26.0",
     "eslint-config-standard": "^16.0.2",
     "eslint-plugin-import": "^2.23.2",

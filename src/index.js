@@ -13,9 +13,9 @@ const {
 const config = require('./config')
 const { dataKeyRegex } = require('./utils')
 const { createGunzip } = require('zlib')
+const { pipeline, Writable } = require('stream')
+const fs = require('fs')
 // const { promisify } = require('utixl')
-
-const gunzip = createGunzip()
 
 const client = new DynamoDBClient({
   region: config.AWS_REGION,
@@ -97,10 +97,25 @@ setImmediate(async () => {
   // const exportArn = await orderExport()
   // await waitCompleted(exportArn)
   const exportObjects = await retrieveObjects()
+  const chunks = []
+
+  function collateChunks () {
+    const writable = new Writable()
+    writable._write = (chunk, _encoding, next) => {
+      chunks.push(chunk.toString())
+      next()
+    }
+    return writable
+  }
 
   exportObjects.forEach(getObjectCommanOutput => {
-    const x = getObjectCommanOutput.Body.read()
-    gunzip(x)
-    const y = x
+    pipeline(
+      getObjectCommanOutput.Body,
+      createGunzip(),
+      collateChunks(),
+      function (err) {
+        console.error(err)
+        process.exit(1)
+      })
   })
 })
