@@ -1,0 +1,38 @@
+{
+  "name": "@oscar-bartman/export-dynamo-table",
+  "version": "0.0.1",
+  "description": "exports a dynamo table to s3 and downloads and formats it",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "mocha",
+    "coverage": "npx nyc npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oscar-bartman/export-dynamo-table.git"
+  },
+  "keywords": [
+    "dynamodb",
+    "export"
+  ],
+  "author": "me@obartman.nl",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/oscar-bartman/export-dynamo-table/issues"
+  },
+  "homepage": "https://github.com/oscar-bartman/export-dynamo-table#readme",
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.16.0",
+    "@aws-sdk/client-s3": "^3.16.0",
+    "@aws-sdk/util-dynamodb": "^3.16.0",
+    "joi": "^17.4.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.26.0",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-plugin-import": "^2.23.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.3.1",
+    "mocha": "^8.4.0"
+  }
+}
