@@ -10,7 +10,7 @@ Set the following variables through env:
 
 | name                  | description                                         | example                                                       | required |
 |-----------------------|-----------------------------------------------------|---------------------------------------------------------------|----------|
-| AWS_REGIONS           | your aws region                                     | eu-west-1                                                     | yes      |
+| AWS_REGION            | your aws region                                     | eu-west-1                                                     | yes      |
 | EXPORT_BUCKET         | a bucket you have configured to store the export to | verzekerden-export-bucket                                     | yes      |
 | AWS_ACCESS_KEY_ID     |  your (admin) aws access key id                     | AKIA.....                                                     | yes      |
 | AWS_SECRET_ACCESS_KEY | you (admin) aws access key                          | very_very_secret                                              | yes      |

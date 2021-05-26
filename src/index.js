@@ -97,22 +97,25 @@ setImmediate(async () => {
   // const exportArn = await orderExport()
   // await waitCompleted(exportArn)
   const exportObjects = await retrieveObjects()
-  const chunks = []
+  const chunksTable = []
 
-  function collateChunks () {
+  function collateChunks (index) {
     const writable = new Writable()
     writable._write = (chunk, _encoding, next) => {
-      chunks.push(chunk.toString())
+      if (!chunksTable[index]) {
+        chunksTable[index] = []
+      }
+      chunksTable[index].push(chunk.toString())
       next()
     }
     return writable
   }
 
-  exportObjects.forEach(getObjectCommanOutput => {
+  exportObjects.forEach((getObjectCommanOutput, index) => {
     pipeline(
       getObjectCommanOutput.Body,
       createGunzip(),
-      collateChunks(),
+      collateChunks(index),
       function (err) {
         console.error(err)
         process.exit(1)
