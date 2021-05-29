@@ -117,3 +117,5 @@ dist
 
 # personal scripts etc
 *.local.*
+
+log.txt

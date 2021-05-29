@@ -25,6 +25,7 @@
     "@aws-sdk/client-dynamodb": "^3.16.0",
     "@aws-sdk/client-s3": "^3.16.0",
     "@aws-sdk/util-dynamodb": "^3.16.0",
+    "csv-stringify": "^5.6.2",
     "joi": "^17.4.0"
   },
   "devDependencies": {
