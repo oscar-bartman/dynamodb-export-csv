@@ -49,9 +49,8 @@ setImmediate(async () => {
 
   function writeToCSV (records) {
     /**
-     * Turns string chunks into discrete record strings and passes them on.
-     * Keeps unread records in an internal buffer.
-     * [x,x,x,x,x,x],[x,x,x,x,x],... -> x,x,x,x,x,x,x,x,x,...
+     * Turns string chunks into discrete record strings and passes them on as
+     * single chunks.
      */
     function spreadBuffer () {
       return new Duplex({
@@ -63,6 +62,7 @@ setImmediate(async () => {
             this.remainder = null
           }
 
+          // last line in a chunk of records may be an incomplete record
           const last = dynamoDBRecords[dynamoDBRecords.length - 1]
           try {
             JSON.parse(last)
@@ -109,7 +109,7 @@ setImmediate(async () => {
     assert(exportArn, new Error('requires exportArn'))
     const dynamodbRecords = await retrieveRecords(exportArn)
     writeToCSV(dynamodbRecords)
-    fs.appendFileSync('log.txt', `${exportArn}\n`)
+    fs.appendFileSync('arns.log', `${exportArn}\n`)
   } catch (err) {
     console.log(err)
     exit(1)
