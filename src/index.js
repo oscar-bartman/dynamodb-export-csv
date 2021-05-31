@@ -5,8 +5,10 @@ const { Transform, Duplex } = require('stream')
 const fs = require('fs')
 const stringify = require('csv-stringify')
 const assert = require('assert')
-const config = require('./config')
 const { exit } = require('process')
+const config = require('./config')
+const parseKeyHeaderPairs = require('./parseKeyHeaderPairs')
+const { columnsInputRegex } = require('./validations')
 
 setImmediate(async () => {
   async function retrieveRecords (exportArn) {
@@ -47,7 +49,7 @@ setImmediate(async () => {
     }))
   }
 
-  function writeToCSV (records) {
+  function writeToCSV (records, { columns }) {
     /**
      * Turns string chunks into discrete record strings and passes them on as
      * single chunks.
@@ -98,17 +100,20 @@ setImmediate(async () => {
         .pipe(dynamodbRecordUnmarshall())
         .pipe(stringify({
           header: true,
-          columns: ['wgnummer', 'email']
+          columns
         }))
         .pipe(fs.createWriteStream(`${index}.csv`))
     })
   }
 
   try {
-    const [,, exportArn] = process.argv
+    const [,, exportArn, keyValuePairs] = process.argv
     assert(exportArn, new Error('requires exportArn'))
+    assert(keyValuePairs, new Error('reqruires columns input'))
+    assert.match(keyValuePairs, columnsInputRegex, new Error('columns input faulty'))
+    const columns = parseKeyHeaderPairs(keyValuePairs)
     const dynamodbRecords = await retrieveRecords(exportArn)
-    writeToCSV(dynamodbRecords)
+    writeToCSV(dynamodbRecords, { columns })
     fs.appendFileSync('arns.log', `${exportArn}\n`)
   } catch (err) {
     console.log(err)

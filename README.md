@@ -23,10 +23,10 @@ Obtain an ExportArn through the [ExportTableToPointInTime](https://docs.aws.amaz
 aws dynamodb export-table-to-point-in-time --table-arn  
 ```
 
-Then download the export as a CSV:
+Then download the export as a CSV using the export arn:
 
 ```bash
-$ node src/index.js arn:aws:dynamodb:...
+$ node src/index.js arn:aws:dynamodb:... 'key=adresStatutair.postcode&header=postcode,key=wgnummer,key=email,key=kanaalvoorkeur'
 ```
 
 ## Development
