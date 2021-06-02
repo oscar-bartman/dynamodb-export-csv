@@ -1,0 +1,10 @@
+.eslintrc.json
+.gitignore
+.mocharc.json
+.nycrc.json
+*.log
+*.local.*
+.github
+.vscode
+.env
+test
