@@ -1,6 +1,6 @@
 {
   "name": "@oscar-bartman/dynamodb-export-csv",
-  "version": "1.0.7",
+  "version": "0.0.2",
   "description": "downloads a dynamodb export from s3 as csv",
   "main": "src/index.js",
   "bin": {
@@ -30,7 +30,8 @@
     "@aws-sdk/client-s3": "^3.16.0",
     "@aws-sdk/util-dynamodb": "^3.16.0",
     "csv-stringify": "^5.6.2",
-    "joi": "^17.4.0"
+    "joi": "^17.4.0",
+    "jsonpath": "^1.1.1"
   },
   "devDependencies": {
     "dotenv": "^10.0.0",
