@@ -16,4 +16,9 @@ describe('columnsInputRegex', () => {
     const keyValuePairs = 'key=wgnummer'
     assert.strictEqual(columnsInputRegex.test(keyValuePairs), true)
   })
+
+  it('trailing comma', () => {
+    const keyValuePairs = 'key=wgnummer,'
+    assert.strictEqual(columnsInputRegex.test(keyValuePairs), false)
+  })
 })
