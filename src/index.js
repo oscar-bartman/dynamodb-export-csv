@@ -1,16 +1,14 @@
 #!/usr/bin/env node
-const { S3Client, GetObjectCommand } = require('@aws-sdk/client-s3')
-const { unmarshall } = require('@aws-sdk/util-dynamodb')
-const { createGunzip } = require('zlib')
-const { Transform, Duplex } = require('stream')
 const fs = require('fs')
-const stringify = require('csv-stringify')
+const { createGunzip } = require('zlib')
 const assert = require('assert')
 const { exit } = require('process')
-const objectPath = require('object-path')
+const { S3Client, GetObjectCommand } = require('@aws-sdk/client-s3')
+const stringify = require('csv-stringify')
 const config = require('./config')
-const parseKeyHeaderPairs = require('./parseKeyHeaderPairs')
-const { columnsInputRegex, filterPathRegex } = require('./validations')
+const parseKeyHeaderPairs = require('./util/parseKeyHeaderPairs')
+const { columnsInputRegex, filterPathRegex } = require('./util/validations')
+const { records, filter, dynaUnmarshall } = require('./streams')
 
 setImmediate(async () => {
   async function getRecords (exportArn) {
@@ -61,73 +59,13 @@ setImmediate(async () => {
    * @param options.filterPredicate - predicate function that takes a dynamodb record as an object
    */
   function writeToCSV (s3Objects, { columns, filterPath, filterPredicate }) {
-    /**
-     * Turns string chunks into discrete record strings and passes them on as
-     * single chunks.
-     */
-    function records () {
-      return new Duplex({
-        objectMode: true,
-        write (chunk, _encoding, callback) {
-          const lines = chunk.toString().split('\n').filter(e => e)
-          if (this.remainder) {
-            lines[0] = `${this.remainder}${lines[0]}`
-            this.remainder = null
-          }
-
-          // last line of a chunk (in)complete
-          const last = lines[lines.length - 1]
-          try {
-            JSON.parse(last)
-          } catch (err) {
-            this.remainder = lines.pop()
-          }
-
-          lines.forEach(record => {
-            this.push(record)
-          })
-
-          callback()
-        },
-        read (size) {
-          return this.read(size)
-        }
-      })
-    }
-
-    function filter (path, predicate) {
-      return new Duplex({
-        objectMode: true,
-        write (chunk, _encoding, callback) {
-          if (objectPath.has(chunk, path)) {
-            if (predicate(objectPath.get(chunk, path))) {
-              this.push(chunk)
-            }
-          }
-          callback()
-        },
-        read (size) {
-          return this.read(size)
-        }
-      })
-    }
-
-    function dynaUnmarshall () {
-      return new Transform({
-        objectMode: true,
-        transform (chunk, _encoding, callback) {
-          callback(null, unmarshall(JSON.parse(chunk).Item))
-        }
-      })
-    }
-
     s3Objects.forEach((record, index) => {
-      const unmarshalledStream = record.Body
+      const unmarshallStream = record.Body
         .pipe(createGunzip())
         .pipe(records())
         .pipe(dynaUnmarshall())
 
-      const stream = (filterPath ? unmarshalledStream.pipe(filter(filterPath, filterPredicate)) : unmarshalledStream)
+      const stream = (filterPath ? unmarshallStream.pipe(filter(filterPath, filterPredicate)) : unmarshallStream)
 
       stream
         .pipe(stringify({
