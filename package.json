@@ -1,6 +1,6 @@
 {
   "name": "@oscar-bartman/dynamodb-export-csv",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "downloads a dynamodb export from s3 as csv",
   "main": "src/index.js",
   "bin": {
