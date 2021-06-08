@@ -1,5 +1,5 @@
 const assert = require('assert')
-const { columnsInputRegex } = require('../src/validations')
+const { columnsInputRegex } = require('../../src/util/validations')
 
 describe('columnsInputRegex', () => {
   it('basic example', () => {

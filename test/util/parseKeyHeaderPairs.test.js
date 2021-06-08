@@ -1,5 +1,5 @@
 const assert = require('assert')
-const parseKeyHeaderPairs = require('../src/parseKeyHeaderPairs')
+const parseKeyHeaderPairs = require('../../src/util/parseKeyHeaderPairs')
 
 describe('parseKeyHeaderPairs', () => {
   it('parses key header strings', () => {

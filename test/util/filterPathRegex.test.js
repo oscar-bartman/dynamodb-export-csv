@@ -1,5 +1,5 @@
 const assert = require('assert')
-const { filterPathRegex } = require('../src/validations')
+const { filterPathRegex } = require('../../src/util/validations')
 
 describe('filterPathRegex', () => {
   it('basic example', () => {
