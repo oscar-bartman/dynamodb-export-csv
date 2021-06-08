@@ -122,11 +122,14 @@ setImmediate(async () => {
     }
 
     s3Objects.forEach((record, index) => {
-      record.Body
+      const unmarshalledStream = record.Body
         .pipe(createGunzip())
         .pipe(records())
         .pipe(dynaUnmarshall())
-        .pipe(filter(filterPath, filterPredicate))
+
+      const stream = (filterPath ? unmarshalledStream.pipe(filter(filterPath, filterPredicate)) : unmarshalledStream)
+
+      stream
         .pipe(stringify({
           header: true,
           columns
