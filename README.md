@@ -34,7 +34,6 @@ $ dynamodb-export-csv $EXPORT_ARN 'key=id,key=contact.email&header=email' 'prefe
 
 ```
 npm t
-
 ```
 
 ### Debug this code

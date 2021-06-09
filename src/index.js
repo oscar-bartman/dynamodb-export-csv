@@ -49,15 +49,6 @@ setImmediate(async () => {
     }))
   }
 
-  /**
-   * Stream based csv writer for a dynamodb export
-   *
-   * @param s3Objects - export response from s3
-   * @param options - options
-   * @param options.columns - keys and headers to display, passed to [csv-stringify](https://csv.js.org/stringify/options/columns/)
-   * @param options.filterPath - which field to filter on defined as an object path
-   * @param options.filterPredicate - predicate function that takes a dynamodb record as an object
-   */
   function writeToCSV (s3Objects, { columns, filterPath, filterPredicate }) {
     s3Objects.forEach((record, index) => {
       const unmarshallStream = record.Body
@@ -101,7 +92,7 @@ setImmediate(async () => {
 
     fs.appendFileSync('arns.log', `${exportArn}\n`)
   } catch (err) {
-    console.log(err)
+    console.log(err.message)
     exit(1)
   }
 })
