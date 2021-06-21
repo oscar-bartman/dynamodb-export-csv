@@ -1,4 +1,4 @@
 {
-  "parallel": true,
+  "parallel": false,
   "recursive": true
 }

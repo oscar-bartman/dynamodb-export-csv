@@ -8,6 +8,7 @@
   },
   "scripts": {
     "test": "mocha",
+    "test:inspect": "mocha --inspect-brk",
     "coverage": "npx nyc npm run test",
     "lint": "eslint ."
   },
