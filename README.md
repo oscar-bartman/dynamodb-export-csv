@@ -2,23 +2,29 @@
 
 # dynamodb-export-csv
 
+Tool that downloads a dynamodb table export stored in s3 as csv files. 
+
 ## Usage
 
 Set the following variables through env:
 
-| name                  | description                                    | example        | required |
-|-----------------------|------------------------------------------------|----------------|----------|
-| AWS_ACCESS_KEY_ID     |  your aws access key id                        | ...            | yes      |
-| AWS_SECRET_ACCESS_KEY | you aws access key                             | ...            | yes      |
-| AWS_REGION            | your aws region                                | ...            | yes      |
-| EXPORT_BUCKET         | arn of the export you want to download as csv  | arn:...        | yes      |
+| name                  | description                                        | example        | required |
+|-----------------------|----------------------------------------------------|----------------|----------|
+| AWS_ACCESS_KEY_ID     |  your aws access key id                            | ...            | yes      |
+| AWS_SECRET_ACCESS_KEY | you aws access key                                 | ...            | yes      |
+| AWS_REGION            | your aws region                                    | ...            | yes      |
+| EXPORT_BUCKET         | name of the bucket that you stored your export in. | arn:...        | yes      |
 
 
 Download the export as csv. Specify which fields in the data you want under which header name.
 
 ```bash
+$ export EXPORT_ARN = arn:aws:dynamodb:...
 $ dynamodb-export-csv $EXPORT_ARN 'key=id,key=contact.email&header=email'
 ```
+
+### Outputs: 
+0.csv, 1.csv, ..., x.csv, arns.log
 
 ### Using filters
 
