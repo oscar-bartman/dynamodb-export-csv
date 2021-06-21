@@ -11,7 +11,7 @@ Set the following variables through env:
 | AWS_ACCESS_KEY_ID     |  your aws access key id                        | ...            | yes      |
 | AWS_SECRET_ACCESS_KEY | you aws access key                             | ...            | yes      |
 | AWS_REGION            | your aws region                                | ...            | yes      |
-| EXPORT_ARN            | arn of the export you want to download as csv  | arn:...        | yes      |
+| EXPORT_BUCKET         | arn of the export you want to download as csv  | arn:...        | yes      |
 
 
 Download the export as csv. Specify which fields in the data you want under which header name.
