@@ -1,6 +1,6 @@
 {
   "name": "@oscar-bartman/dynamodb-export-csv",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "downloads a dynamodb export from s3 as csv",
   "main": "src/index.js",
   "bin": {
@@ -28,17 +28,17 @@
   },
   "homepage": "https://github.com/oscar-bartman/download-dynamodb-export#readme",
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.16.0",
-    "@aws-sdk/util-dynamodb": "^3.16.0",
-    "csv-stringify": "^5.6.2",
-    "joi": "^17.4.0",
-    "object-path": "^0.11.5"
+    "@aws-sdk/client-s3": "^3.29.0",
+    "@aws-sdk/util-dynamodb": "^3.29.0",
+    "csv-stringify": "^5.6.5",
+    "joi": "^17.4.2",
+    "object-path": "^0.11.7"
   },
   "devDependencies": {
     "dotenv": "^10.0.0",
-    "eslint": "^7.26.0",
+    "eslint": "^7.32.0",
     "eslint-config-standard": "^16.0.2",
-    "eslint-plugin-import": "^2.23.2",
+    "eslint-plugin-import": "^2.24.2",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.3.1",
     "mocha": "^8.4.0",
