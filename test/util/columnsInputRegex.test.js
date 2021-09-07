@@ -26,4 +26,9 @@ describe('columnsInputRegex', () => {
     const keyValuePairs = 'key=foo.bar&header=foo bar,key=id'
     assert.strictEqual(columnsInputRegex.test(keyValuePairs), true)
   })
+
+  it('another basic example', () => {
+    const keyValuePairs = 'key=wgnummer&header=Werkgeversnummer,key=email&header=emailadres,key=handelsnaam&header=handelsnaam werkgever,key=kanaalvoorkeur&header=kanaalkeuze,key=naam&header=statutaire naam werkgever,key=relatienummer,key=telefoonnummer'
+    assert.strictEqual(columnsInputRegex.test(keyValuePairs), true)
+  })
 })
