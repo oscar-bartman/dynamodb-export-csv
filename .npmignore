@@ -8,3 +8,5 @@
 .vscode
 .env
 test
+coverage
+.nyc_output
