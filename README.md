@@ -34,6 +34,8 @@ You can pass filters by specifying which field you want to filter on and which v
 $ dynamodb-export-csv $EXPORT_ARN 'key=id,key=contact.email&header=email' 'preferences.favoriteColor' 'BLUE'
 ```
 
+Specifying which field to filter on is done via [object-path](https://www.npmjs.com/package/object-path) so any of the object query syntax defined therein should work. 
+
 ## Development
 
 ### Run tests
